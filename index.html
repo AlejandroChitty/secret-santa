@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Santa Acertijos</title>
+    <title></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,6 +13,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding: 16px;
         }
         .container {
             background-color: #ffffff;
@@ -69,9 +70,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Descubre tu Acertijo</h1>
-        <input type="text" id="pairInput" placeholder="Ingresa tus nombres separados por / (Ej: Nela/Robs)">
-        <button onclick="showRiddle()">Ver Acertijo</button>
+        <input type="text" id="pairInput" placeholder="Ingresa tu clave secreta...">
+        <button onclick="showRiddle()">Acceder</button>
         <div class="riddle" id="riddleOutput">
             <!-- El acertijo aparecerá aquí -->
         </div>
