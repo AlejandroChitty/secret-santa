@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Santa Acertijos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .riddle {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            display: none;
+            border-radius: 4px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px 20px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Descubre tu Acertijo</h1>
+        <input type="text" id="pairInput" placeholder="Ingresa tus nombres separados por / (Ej: Nela/Robs)">
+        <button onclick="showRiddle()">Ver Acertijo</button>
+        <div class="riddle" id="riddleOutput">
+            <!-- El acertijo aparecerá aquí -->
+        </div>
+    </div>
+
+    <script>
+        const riddles = {
+            "nelaberto": `Tres sombras sonoras danzan con aliento,<br>
+cada una dibuja su pulso en el viento.<br>
+La primera reposa, su paso es pausado,<br>
+la segunda constante, un ritmo marcado.<br>
+Mas la tercera se alza fugaz en su nota,<br>
+su última sílaba: la llave que brota.`,
+            
+            "manuire": `Bajo aguas cristalinas y corales de ensueño,<br>
+un pequeño se atreve a enfrentar el vasto azul.<br>
+Entre dígitos verdes y realidades ocultas,<br>
+un elegido despierta para cuestionarlo todo.<br>
+Sus nombres comienzan con la misma centella,<br>
+descúbrela y entrégala a nuestro gran enigma.`,
+            
+            "marelarms": `Bajo la chispa de la invención surgieron dos mentes geniales:<br>
+el primero iluminó al mundo con su filamento incandescente,<br>
+el segundo impulsó las corrientes alternas en grandes ciudades.<br>
+Nombra a ambos, y del segundo toma la última chispa de su nombre.<br>
+Ese signo encenderá el enigma final.`,
+            
+            "titincho": `Un reino maldito yace en penumbra,<br>
+donde cada paso prueba el temple de tu alma,<br>
+cayendo y alzándote entre cenizas de fuego marchito.<br>
+En otra tierra, la sombra de un maligno señor<br>
+acecha bajo criptas e infiernos,<br>
+enredando héroes en un ciclo de guerra infinita.<br>
+Nombra ambos mundos y halla la chispa inicial que comparten,<br>
+pues esa letra forjará tu aporte a la gran revelación.`,
+            
+            "andreli": `Una amasa su arte con ‘harina’ y dulzura,<br>
+la otra crea ‘historias’ que en risas se curan.<br>
+Mirad ambas palabras con mucho cuidado,<br>
+pues hay una letra que en cada una habita<br>
+una sola vez, sin haberla duplicado.<br>
+Halladla y guardadla:<br>
+es la chispa que el enigma necesita.`
+        };
+
+        function showRiddle() {
+            const input = document.getElementById('pairInput').value.trim();
+            const riddleDiv = document.getElementById('riddleOutput');
+            if (riddles[input]) {
+                riddleDiv.innerHTML = riddles[input];
+                riddleDiv.style.display = 'block';
+            } else {
+                riddleDiv.innerHTML = `No se encontró un acertijo para "${input}".`;
+                riddleDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
