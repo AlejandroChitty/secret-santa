@@ -3,64 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Secret Santa Acertijos</title>
     <style>
+        /* Estilos Oscuros */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
+            background-color: #121212;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 16px;
         }
         .container {
-            background-color: #ffffff;
+            background-color: #1e1e1e;
             padding: 20px 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             max-width: 400px;
             width: 90%;
-        }
-        h1 {
             text-align: center;
-            color: #333333;
         }
         input[type="text"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0 20px 0;
-            border: 1px solid #cccccc;
+            border: 1px solid #444444;
             border-radius: 4px;
+            background-color: #2c2c2c;
+            color: #ffffff;
         }
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
+            padding: 12px;
+            background-color: #6200ea;
             border: none;
             color: white;
             font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #3700b3;
         }
         .riddle {
             margin-top: 20px;
             padding: 15px;
-            background-color: #e7f3fe;
-            border-left: 6px solid #2196F3;
+            background-color: #2c2c2c;
+            border-left: 6px solid #6200ea;
             display: none;
             border-radius: 4px;
+            text-align: left;
+        }
+        /* Temas Personalizados */
+        .theme-cupcakes {
+            background-image: url('https://i.imgur.com/1kB1tGQ.png'); /* Imagen de cupcakes */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #ffffff;
+        }
+        .theme-gaming {
+            background-image: url('https://i.imgur.com/4AiXzf8.png'); /* Imagen de joysticks */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #ffffff;
+        }
+        .theme-invention {
+            background-image: url('https://i.imgur.com/Z5Qm8Wk.png'); /* Imagen de inventos/engranajes */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #ffffff;
+        }
+        .theme-dark {
+            background-image: url('https://i.imgur.com/QZ7F0jx.png'); /* Imagen de demonios o oscuro */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #ffffff;
+        }
+        .theme-letter {
+            background-color: rgba(0,0,0,0.7);
+            color: #ffffff;
+        }
+        /* Responsive Input y Botón */
+        .input-button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         @media (max-width: 600px) {
             .container {
                 padding: 15px 20px;
-            }
-            h1 {
-                font-size: 1.5em;
             }
             button {
                 font-size: 14px;
@@ -70,8 +104,10 @@
 </head>
 <body>
     <div class="container">
-        <input type="text" id="pairInput" placeholder="Ingresa tu clave secreta...">
-        <button onclick="showRiddle()">Acceder</button>
+        <div class="input-button-wrapper">
+            <input type="text" id="pairInput" placeholder="Ingresa tus nombres separados por / (Ej: Nela/Robs)">
+            <button onclick="showRiddle()">Acertijo</button>
+        </div>
         <div class="riddle" id="riddleOutput">
             <!-- El acertijo aparecerá aquí -->
         </div>
@@ -79,27 +115,34 @@
 
     <script>
         const riddles = {
-            "nelaberto": `Tres sombras sonoras danzan con aliento,<br>
+            "nela/robs": {
+                text: `Tres sombras sonoras danzan con aliento,<br>
 cada una dibuja su pulso en el viento.<br>
 La primera reposa, su paso es pausado,<br>
 la segunda constante, un ritmo marcado.<br>
 Mas la tercera se alza fugaz en su nota,<br>
 su última sílaba: la llave que brota.`,
-            
-            "manuire": `Bajo aguas cristalinas y corales de ensueño,<br>
+                theme: "theme-cupcakes"
+            },
+            "manu/ire": {
+                text: `Bajo aguas cristalinas y corales de ensueño,<br>
 un pequeño se atreve a enfrentar el vasto azul.<br>
 Entre dígitos verdes y realidades ocultas,<br>
 un elegido despierta para cuestionarlo todo.<br>
 Sus nombres comienzan con la misma centella,<br>
 descúbrela y entrégala a nuestro gran enigma.`,
-            
-            "marelarms": `Bajo la chispa de la invención surgieron dos mentes geniales:<br>
+                theme: "theme-gaming"
+            },
+            "marela/armando": {
+                text: `Bajo la chispa de la invención surgieron dos mentes geniales:<br>
 el primero iluminó al mundo con su filamento incandescente,<br>
 el segundo impulsó las corrientes alternas en grandes ciudades.<br>
 Nombra a ambos, y del segundo toma la última chispa de su nombre.<br>
 Ese signo encenderá el enigma final.`,
-            
-            "titincho": `Un reino maldito yace en penumbra,<br>
+                theme: "theme-invention"
+            },
+            "tito/martin": {
+                text: `Un reino maldito yace en penumbra,<br>
 donde cada paso prueba el temple de tu alma,<br>
 cayendo y alzándote entre cenizas de fuego marchito.<br>
 En otra tierra, la sombra de un maligno señor<br>
@@ -107,26 +150,83 @@ acecha bajo criptas e infiernos,<br>
 enredando héroes en un ciclo de guerra infinita.<br>
 Nombra ambos mundos y halla la chispa inicial que comparten,<br>
 pues esa letra forjará tu aporte a la gran revelación.`,
-            
-            "andreli": `Una amasa su arte con ‘harina’ y dulzura,<br>
+                theme: "theme-dark"
+            },
+            "andrea/meli": {
+                text: `Una amasa su arte con ‘harina’ y dulzura,<br>
 la otra crea ‘historias’ que en risas se curan.<br>
 Mirad ambas palabras con mucho cuidado,<br>
 pues hay una letra que en cada una habita<br>
 una sola vez, sin haberla duplicado.<br>
 Halladla y guardadla:<br>
-es la chispa que el enigma necesita.`
+es la chispa que el enigma necesita.`,
+                theme: "theme-letter"
+            }
+        };
+
+        const themes = {
+            "theme-cupcakes": {
+                background: "#ffebcd",
+                textColor: "#333333",
+                image: "https://i.imgur.com/1kB1tGQ.png" // Cupcakes
+            },
+            "theme-gaming": {
+                background: "#2c3e50",
+                textColor: "#ecf0f1",
+                image: "https://i.imgur.com/4AiXzf8.png" // Joysticks/Gaming
+            },
+            "theme-invention": {
+                background: "#34495e",
+                textColor: "#ecf0f1",
+                image: "https://i.imgur.com/Z5Qm8Wk.png" // Engranajes/Invention
+            },
+            "theme-dark": {
+                background: "#1c1c1c",
+                textColor: "#e74c3c",
+                image: "https://i.imgur.com/QZ7F0jx.png" // Dark/Demonio
+            },
+            "theme-letter": {
+                background: "#2ecc71",
+                textColor: "#ffffff",
+                image: "https://i.imgur.com/3d2Q9xG.png" // Letter/Creative
+            }
         };
 
         function showRiddle() {
-            const input = document.getElementById('pairInput').value.trim();
+            let input = document.getElementById('pairInput').value.trim().toLowerCase();
+            input = input.replace(/\s+/g, '').replace(/_/g, '/');
             const riddleDiv = document.getElementById('riddleOutput');
+            const containerDiv = document.querySelector('.container');
             if (riddles[input]) {
-                riddleDiv.innerHTML = riddles[input];
+                const riddle = riddles[input];
+                riddleDiv.innerHTML = riddle.text;
                 riddleDiv.style.display = 'block';
+                // Aplicar tema
+                containerDiv.className = `container ${riddle.theme}`;
+                // Cambiar estilos según el tema
+                applyTheme(riddle.theme);
             } else {
-                riddleDiv.innerHTML = `No se encontró un acertijo para "${input}".`;
+                riddleDiv.innerHTML = `No se encontró un acertijo para "${input}". Asegúrate de ingresar los nombres correctamente, separados por "/".`;
                 riddleDiv.style.display = 'block';
+                containerDiv.className = `container`;
+                resetTheme();
             }
+        }
+
+        function applyTheme(theme) {
+            const themeConfig = themes[theme];
+            document.body.style.backgroundColor = themeConfig.background;
+            document.body.style.color = themeConfig.textColor;
+            document.querySelector('.container').style.backgroundImage = `url('${themeConfig.image}')`;
+            document.querySelector('.container').style.backgroundSize = 'cover';
+            document.querySelector('.container').style.backgroundRepeat = 'no-repeat';
+            document.querySelector('.container').style.color = themeConfig.textColor;
+        }
+
+        function resetTheme() {
+            document.body.style.backgroundColor = '#121212';
+            document.body.style.color = '#ffffff';
+            document.querySelector('.container').style.backgroundImage = 'none';
         }
     </script>
 </body>
