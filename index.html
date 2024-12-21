@@ -80,6 +80,10 @@
         color: #ffffff;
         box-sizing: border-box;
       }
+      input[type="text"]:focus {
+        outline: none;
+        border: 1px solid #19951d;
+      }
       button {
         width: 100%;
         padding: 12px;
@@ -92,7 +96,11 @@
         transition: background-color 0.3s;
       }
       button:hover {
-        background-color: #3700b3;
+        background-color: #19951d;
+      }
+      button:focus {
+        outline: none;
+        background-color: #19951d;
       }
       .riddle {
         margin-top: 20px;
@@ -143,9 +151,7 @@
           />
           <button onclick="showRiddle()">👀</button>
         </div>
-        <div class="riddle" id="riddleOutput">
-          <!-- El acertijo aparecerá aquí -->
-        </div>
+        <div class="riddle" id="riddleOutput"></div>
       </div>
     </div>
 
@@ -175,7 +181,7 @@ descúbrela y entrégala a nuestro gran enigma.`,
           text: `Bajo la chispa de la invención surgieron dos mentes geniales:<br>
 el primero iluminó al mundo con su filamento incandescente,<br>
 el segundo impulsó las corrientes alternas en grandes ciudades.<br>
-Nombra a ambos, y del segundo toma la última chispa de su nombre.<br>
+Nombra a ambos, y del segundo toma la segunda chispa de su apellido.<br>
 Ese signo encenderá el enigma final.`,
           theme: "theme-invention",
         },
@@ -284,9 +290,6 @@ es la chispa que el enigma necesita.`,
       function resetTheme() {
         document.querySelector(".background-overlay").style.opacity = 0.15;
         document.querySelector("input-button-wrapper").style.display = "block";
-        document.querySelector(".container").style.backgroundImage = "none";
-        document.querySelector(".container").style.backgroundColor =
-          "rgba(30, 30, 30, 0.9)";
       }
     </script>
   </body>
