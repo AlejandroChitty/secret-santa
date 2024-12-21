@@ -269,6 +269,7 @@ es la chispa que el enigma necesita.`,
       function applyTheme(theme) {
         const themeConfig = themes[theme];
         if (themeConfig) {
+          document.querySelector(".background-overlay").style.opacity = 0.03;
           document.querySelector(".input-button-wrapper").style.display =
             "none";
           const body = document.querySelector("body");
@@ -281,6 +282,7 @@ es la chispa que el enigma necesita.`,
       }
 
       function resetTheme() {
+        document.querySelector(".background-overlay").style.opacity = 0.15;
         document.querySelector("input-button-wrapper").style.display = "block";
         document.querySelector(".container").style.backgroundImage = "none";
         document.querySelector(".container").style.backgroundColor =
